@@ -1,0 +1,41 @@
+pipeline:
+  name: gkalipalli-demo-pipeline
+  identifier: gkalipallidemopipeline
+  projectIdentifier: SFTY_Training
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: gkalipalligitconnector
+        repoName: harness-demo
+        build: <+input>
+  stages:
+    - stage:
+        name: Build Stage
+        identifier: Build_Stage
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          caching:
+            enabled: true
+            override: false
+          platform:
+            os: Linux
+            arch: Arm64
+          runtime:
+            type: Cloud
+            spec:
+              size: flex
+              imageSpec:
+                imageName: ubuntu-24
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Run_1
+                  identifier: Run_1
+                  spec:
+                    shell: Sh
+                    command: ansible --version
