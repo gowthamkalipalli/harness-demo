@@ -75,30 +75,17 @@ pipeline:
                     imageName: ubuntu-24
               execution:
                 steps:
-                  - parallel:
-                      - step:
-                          type: BuildAndPushGAR
-                          name: BuildAndPushGAR_1
-                          identifier: BuildAndPushGAR_1
-                          spec:
-                            connectorRef: gkalipalligcpconnector
-                            host: us.gcr.io
-                            projectID: arched-backup-481810-g4
-                            imageName: harness
-                            tags:
-                              - v1
-                      - step:
-                          type: Run
-                          name: Docker Build  Push
-                          identifier: Docker_Build_Push
-                          spec:
-                            shell: Sh
-                            command: |-
-                              docker pull lvthillo/python-flask-docker
-                              docker run --name my-container -d -p 8080:8080 lvthillo/python-flask-docker
-
-                              echo "Image succesfully created..."
-                          description: Pushing to GAR
+                  - step:
+                      type: BuildAndPushGAR
+                      name: BuildAndPushGAR_1
+                      identifier: BuildAndPushGAR_1
+                      spec:
+                        connectorRef: pdgcp
+                        host: us.gcr.io
+                        projectID: arched-backup-481810-g4
+                        imageName: harness
+                        tags:
+                          - v1
   properties:
     ci:
       codebase:
