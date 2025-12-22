@@ -33,9 +33,11 @@ pipeline:
           execution:
             steps:
               - step:
-                  type: Run
-                  name: Run_1
-                  identifier: Run_1
+                  type: BuildAndPushDockerRegistry
+                  name: BuildAndPushDockerRegistry_1
+                  identifier: BuildAndPushDockerRegistry_1
                   spec:
-                    shell: Sh
-                    command: ansible --version
+                    connectorRef: dockerhub_connecter
+                    repo: harness
+                    tags:
+                      - v2
